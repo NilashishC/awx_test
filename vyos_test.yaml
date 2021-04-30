@@ -4,4 +4,8 @@
   tasks:
     - vyos_command:
         commands: show version
+      register: result
+
+    - debug:
+        var: "{{ result['stdout_lines'] }}"
       
