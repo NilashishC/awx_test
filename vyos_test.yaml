@@ -1,20 +1,7 @@
 ---
 - hosts: vyos
   gather_facts: no
-  vars:
-    relevant_cmd: show version
-    cmds:
-      - command: show interfaces
-      - command: show version
-      - command: show system memory
   tasks:
-    # controller -> jh1 (public IP) -> jh2 (private IP) -> VyOS
-    # jh1 = 65.1.13.10
-    # jh2 = 172.31.30.248
-    # VyOS = 172.31.21.53
     - vyos_command:
-        commands: "{{ cmds }}"
-      register: result
+        commands: show version
       
-    - debug:
-        msg: "{{ result['stdout_lines'][cmds|ansible.utils.index_of('eq', relevant_cmd, 'command')] }}"
